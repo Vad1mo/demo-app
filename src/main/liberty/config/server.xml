@@ -1,21 +1,37 @@
 <server description="oiz-k8s-session-demo">
 
-<!-- The features installed by the Liberty application accelerator will not appear here.
-  Once the application is built the configured features can be found in the
-  configDropins/defaults folder in the target/wlp folder. -->
+    <!-- The features installed by the Liberty application accelerator will not appear here.
+      Once the application is built the configured features can be found in the
+      configDropins/defaults folder in the target/wlp folder. -->
 
-<!-- To extend the feature list either add the app accelerator Maven dependencies, add the features
- below or put a server.xml file in configDropins/overrides. Note: you may need to add Maven provided
- dependencies for use at compile time if not using app accelerator dependencies. -->
+    <!-- To extend the feature list either add the app accelerator Maven dependencies, add the features
+     below or put a server.xml file in configDropins/overrides. Note: you may need to add Maven provided
+     dependencies for use at compile time if not using app accelerator dependencies. -->
 
     <featureManager>
         <feature>jaxrs-2.0</feature>
         <feature>jsonp-1.0</feature>
+        <feature>sessionDatabase-1.0</feature>
+        <feature>servlet-3.1</feature>
     </featureManager>
+
+
+    <fileset id="MariaDBFiles" includes="*.jar" dir="${shared.resource.dir}/mariadb/client"/>
+    <library id="MariaDBLib" filesetRef="MariaDBFiles"/>
+    <jdbcDriver id="MariaDBDriver" libraryRef="MariaDBLib"/>
+
+    <dataSource id="SessionDS" jdbcDriverRef="MariaDBDriver">
+        <properties createDatabase="create"
+                    databaseName="http-sessions"
+                    serverName="127.0.0.1" portNumber="3306"
+                    user="liberty" password="liberty"/>
+    </dataSource>
+
+    <httpSessionDatabase id="SessionDB" dataSourceRef="SessionDS"/>
+    <httpSession storageRef="SessionDB" cloneId="${cloneId}"/>
 
     <httpEndpoint id="defaultHttpEndpoint"
                   host="*"
                   httpPort="9080"
                   httpsPort="9443"/>
-
 </server>

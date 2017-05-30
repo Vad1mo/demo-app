@@ -62,8 +62,11 @@ dependencies {
     testCompile 'org.glassfish:javax.json:1.0.4'
 
     providedCompile 'net.wasdev.wlp.starters.rest:provided-pom:0.0.3'
-
+    providedCompile 'net.wasdev.wlp.starters.web:provided-pom:0.0.3'
     runtime 'net.wasdev.wlp.starters.rest:runtime-pom:0.0.3'
+    runtime 'net.wasdev.wlp.starters.web:runtime-pom:0.0.3'
+    runtime 'org.mariadb.jdbc:mariadb-java-client:2.0.1'
+    compile 'com.google.guava:guava:22.0'
 }
 
 test {
@@ -196,6 +199,14 @@ cloudfoundry {
     memory = 512
     appName = cfHost
 }
+
+
+task copyRuntimeLibs(type: Copy) {
+    into "${project.buildDir}/lib"
+    from configurations.runtime
+}
+build.dependsOn copyRuntimeLibs
+
 
 tasks.create('setupServer')
 check.dependsOn 'integrationTest'
