@@ -62,10 +62,8 @@ dependencies {
     testCompile 'org.glassfish:javax.json:1.0.4'
 
     providedCompile 'net.wasdev.wlp.starters.rest:provided-pom:0.0.3'
-    providedCompile 'net.wasdev.wlp.starters.microprofile:provided-pom:0.0.3'
 
     runtime 'net.wasdev.wlp.starters.rest:runtime-pom:0.0.3'
-    runtime 'net.wasdev.wlp.starters.microprofile:runtime-pom:0.0.3'
 }
 
 test {
