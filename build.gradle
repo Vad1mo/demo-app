@@ -67,6 +67,8 @@ dependencies {
     runtime 'net.wasdev.wlp.starters.web:runtime-pom:0.0.3'
     runtime 'org.mariadb.jdbc:mariadb-java-client:2.0.1'
     compile 'com.google.guava:guava:22.0'
+    compile 'com.hazelcast:hazelcast-wm:3.8.1'
+    compile 'com.hazelcast:hazelcast-client:3.8.2'
 }
 
 test {

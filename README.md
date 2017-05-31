@@ -17,4 +17,16 @@ gradle build libertyStart
 
 
 ## Demo
-`for ((i=1;i<=100;i++)); do curl localhost:9080/myLibertyApp/rest && echo "\n" && sleep 2 ;done `
+
+Starting locally:
+
+```
+docker run -ti -e CLONE_ID=c1 -e MYSQL_SERVER=172.17.0.3 vad1mo/liberty-openshift-demo 
+
+```
+
+Query the API for results
+
+```
+for ((i=1;i<=100;i++)); do curl localhost:9080/myLibertyApp/rest && echo "\n" && sleep 2 ;done 
+```

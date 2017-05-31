@@ -43,16 +43,21 @@ public class LibertyRestEndpoint extends Application {
         Integer count = 0;
         String host = "";
         try {
-            host =  firstNonNull((String)session.getAttribute("Host"),"");
+            host =  firstNonNull((String)session.getAttribute("Host")," N/A ");
             session.setAttribute("Host", InetAddress.getLocalHost().getHostName());
+
+            if (session.getAttribute("my-sessions") == null){
+                session.setAttribute("my-sessions",session.getId());
+            }
             count = firstNonNull((Integer)session.getAttribute("Count"),0);
             count++;
             session.setAttribute("Count", count);
+
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
 
-        return "Hello from the REST endpoint! Count:" + count.toString() + " last request   from:" + host ;
+        return "Hello from the REST endpoint! Count: " + count.toString() + " last request from:" + host + " Session ID: " + session.getId();
     }
 
 }
